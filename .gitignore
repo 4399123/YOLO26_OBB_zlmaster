@@ -1,0 +1,9 @@
+.idea/
+__pycache__/
+onnx/
+pt/
+results_onnx_obb/
+results_trt_obb/
+trt/
+images/
+premodel/
