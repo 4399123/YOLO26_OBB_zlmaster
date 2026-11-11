@@ -82,9 +82,9 @@ class OBBExportWrapper(nn.Module):
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="导出带 BGR 预处理与 OBB 四顶点输出的 ONNX 模型")
     parser.add_argument("--weights", default="pt/best.pt", help="训练完成的 .pt 权重")
-    parser.add_argument("--outpath", default="onnx/best_obb.onnx", help="ONNX 输出路径")
-    parser.add_argument("--topk", type=int, default=150, help="每张图输出置信度最高的候选框数量")
-    parser.add_argument("--conf", type=float, default=0.25, help="类别置信度阈值；低于该值的输出行会标记为无效")
+    parser.add_argument("--outpath", default="onnx/best_obb_1to1.onnx", help="ONNX 输出路径")
+    parser.add_argument("--topk", type=int, default=100, help="每张图输出置信度最高的候选框数量")
+    parser.add_argument("--conf", type=float, default=0.55, help="类别置信度阈值；低于该值的输出行会标记为无效")
     parser.add_argument("--imgsz", type=int, default=800, help="模型输入宽高；外部应先 resize 到该尺寸")
     parser.add_argument("--opset", type=int, default=13, help="ONNX opset 版本，推荐 13")
     return parser.parse_args()

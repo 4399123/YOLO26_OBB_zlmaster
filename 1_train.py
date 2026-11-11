@@ -175,10 +175,10 @@ TRAIN_ARGS = dict(
     # ------------------------------------------------- 训练设置 -------------------------------------------------
     data=DATA,  # (str) 数据集 yaml 路径
     task="obb",  # (str) 任务类型: 旋转框检测
-    epochs=200,  # (int) 训练轮数
+    epochs=150,  # (int) 训练轮数
     time=None,  # (float) 最大训练小时数, 设置后会覆盖 epochs
     patience=0,  # (int) 0 表示关闭早停，避免未验证轮复用旧精度而触发错误的提前停止
-    batch=4,  # (int|float) 批大小; -1 自动批大小; 0~1 小数表示按 GPU 显存占比自动设置
+    batch=8,  # (int|float) 批大小; -1 自动批大小; 0~1 小数表示按 GPU 显存占比自动设置
     imgsz=800,  # (int) 输入图像尺寸 (遥感大图可调大至 1024)
     save=True,  # (bool) 保存训练权重和结果
     save_period=-1,  # (int) 每 N 轮保存一次权重, <1 表示禁用
@@ -190,7 +190,7 @@ TRAIN_ARGS = dict(
     exist_ok=False,  # (bool) 是否覆盖已存在的同名实验目录
     pretrained=True,  # (bool|str) 是否使用预训练权重, 或指定权重路径
     cls_remap=True,  # (bool) 跨数据集微调时按类别名重映射预训练分类头
-    optimizer="auto",  # (str) 优化器: SGD, MuSGD, Adam, Adamax, AdamW, NAdam, RAdam, RMSProp, auto
+    optimizer="AdamW",  # (str) 优化器: SGD, MuSGD, Adam, Adamax, AdamW, NAdam, RAdam, RMSProp, auto
     verbose=True,  # (bool) 打印详细日志
     seed=0,  # (int) 随机种子
     deterministic=True,  # (bool) 启用确定性算法 (可复现, 但可能变慢)
@@ -216,7 +216,7 @@ TRAIN_ARGS = dict(
     # 若最终要导出 End2End ONNX，必须设为 False，否则 best.pt 是按 one2many 最优轮次挑的。
     nms=None,  # (bool|None) 按 one2one (End2End) 分支验证并筛选最佳权重
     # ------------------------------------------------- 学习率与优化器 -------------------------------------------------
-    lr0=0.003,  # (float) 初始学习率 (SGD=1e-2, Adam/AdamW=1e-3); optimizer='auto' 时会被自动覆盖
+    lr0=0.001,  # (float) 初始学习率 (SGD=1e-2, Adam/AdamW=1e-3); optimizer='auto' 时会被自动覆盖
     lrf=0.01,  # (float) 最终学习率系数, 最终 lr = lr0 * lrf
     momentum=0.937,  # (float) SGD 动量 / Adam beta1
     weight_decay=0.0005,  # (float) 权重衰减 (L2 正则)
@@ -236,12 +236,12 @@ TRAIN_ARGS = dict(
     hsv_v=0.4,  # (float) 亮度增强幅度
     degrees=30.0,  # (float) 随机旋转角度 (+/-), OBB 任务可适当设置如 10~180
     translate=0.1,  # (float) 随机平移比例
-    scale=0.5,  # (float) 随机缩放幅度
+    scale=0.3,  # (float) 随机缩放幅度
     shear=0.0,  # (float) 随机剪切角度
     perspective=0.0,  # (float) 透视变换系数 (0~0.001)
-    flipud=0.0,  # (float) 上下翻转概率 (遥感/俯视图像可设为 0.5)
+    flipud=0.1,  # (float) 上下翻转概率 (遥感/俯视图像可设为 0.5)
     fliplr=0.5,  # (float) 左右翻转概率
-    bgr=0.3,  # (float) RGB/BGR 通道交换概率
+    bgr=0.1,  # (float) RGB/BGR 通道交换概率
     mosaic=0.0,  # (float) Mosaic 拼接增强概率
     mixup=0.0,  # (float) MixUp 增强概率
     cutmix=0.0,  # (float) CutMix 增强概率

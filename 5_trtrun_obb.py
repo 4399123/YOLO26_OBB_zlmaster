@@ -108,7 +108,7 @@ def main():
             color = COLORS[class_id % len(COLORS)]
             cv2.polylines(image, [points], isClosed=True, color=color, thickness=2)
             x, y = points[0, 0]
-            cv2.putText(image, f"{class_id}:{score:.2f}", (x, max(20, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+            cv2.putText(image, f"{score:.4f}", (x, max(20, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
 
         cv2.imwrite(os.path.join(SAVE_DIR, os.path.basename(image_path)), image)
 

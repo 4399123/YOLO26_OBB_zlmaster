@@ -10,8 +10,9 @@ import numpy as np
 from tqdm import tqdm
 
 # 配置
-ONNX_PATH = "onnx/best_obb.onnx"
-IMAGES_DIR = "images"
+ONNX_PATH = "onnx/best_obb_1tomany_nms.onnx"
+# IMAGES_DIR = "images"
+IMAGES_DIR = r"D:\BaiduNetdiskDownload\ICDAR2015\ch4_test_images"
 SAVE_DIR = "results_onnx_obb"
 IMGSZ = 800  # 必须与导出 ONNX 时的 --imgsz 一致
 # 置信度过滤已在导出时烘进 ONNX 图，低于 --conf 的固定槽位输出 class_id = -1，此处无需再设阈值。
@@ -55,7 +56,8 @@ def main():
             color = COLORS[class_id % len(COLORS)]
             cv2.polylines(image, [points], isClosed=True, color=color, thickness=2)
             x, y = points[0, 0]
-            cv2.putText(image, f"{class_id}:{score:.2f}", (x, max(20, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+            # cv2.putText(image, f"{class_id}:{score:.4f}", (x, max(20, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1)
+            cv2.putText(image, f"{score:.4f}", (x, max(20, y - 5)), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1)
 
         cv2.imwrite(os.path.join(SAVE_DIR, os.path.basename(image_path)), image)
 
